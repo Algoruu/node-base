@@ -16,7 +16,10 @@ app.get('/:id', function(req, res) {
 
     }else {
         product = db.get(id)
-        product.id = id
+        product["id"] = id // product.id = id
+        // id는 뒤에 있어도 상관없음!!(순서는 중요X)
+        // json 데이터를 전달받는 프론트엔드는 어차피 키값을 통해
+        //  데이터를 찾아서 상관이 없다!
         res.json(product)
     }
 })
