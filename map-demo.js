@@ -5,20 +5,19 @@ app.listen(1234)
 
 
 app.get('/:id', function(req, res) {
-    let {id} = req.params
+    let {id} = req.params 
     id = parseInt(id) //"숫자" => 숫자
     //console.log(db.get(id)) //Map에 넣어둔 값이 없으면 undefined
-
+    
     if (db.get(id) == undefined) {
         res.json({
             message : "없는 항목입니다."
         })
 
     }else {
-        res.json({
-            id : id,
-            productName : db.get(id)
-        })
+        product = db.get(id)
+        product.id = id
+        res.json(product)
     }
 })
 // localhost:1234/1 => NoteBook
@@ -51,6 +50,7 @@ let poster = {
     price : 20000,
     description : "아니 이건 뉴진스? 당장 사야합니다."
 }
+
 db.set(1, notebook) // 키로 밸류를 찾을 수 있는 한 쌍을 저장함
 db.set(2, cup)
 db.set(3, chair)
