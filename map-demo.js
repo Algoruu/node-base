@@ -30,7 +30,7 @@ let db = new Map() //db 대신 사용할거임
 db.set(1, "NoteBook") // 키로 밸류를 찾을 수 있는 한 쌍을 저장함
 db.set(2, "Cup")
 db.set(3, "Chair")
-db.set("1", "KimNanYoung")
+db.set(4, "Poster")
 
 // console.log(db)
 // console.log(db.get(1))
