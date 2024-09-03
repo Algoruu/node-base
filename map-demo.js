@@ -27,10 +27,34 @@ app.get('/:id', function(req, res) {
 
 //하나의 객체로 생성!
 let db = new Map() //db 대신 사용할거임
-db.set(1, "NoteBook") // 키로 밸류를 찾을 수 있는 한 쌍을 저장함
-db.set(2, "Cup")
-db.set(3, "Chair")
-db.set(4, "Poster")
+
+let notebook = {
+    productName : "NoteBook",
+    price : 2000000,
+    description : "누군가 쓰던 엄청난 공책이다."
+}
+
+let cup = {
+    productName : "Cup",
+    price : 3000,
+    description : "수제 옹기컵. 단돈 3000원에 모십니다!!!"
+}
+
+let chair = {
+    productName : "Chair",
+    price : 100000,
+    description : "매우 탐나는 의자다. 옛날 유행했던 걸 재현함."
+}
+
+let poster = {
+    productName : "Poster",
+    price : 20000,
+    description : "아니 이건 뉴진스? 당장 사야합니다."
+}
+db.set(1, notebook) // 키로 밸류를 찾을 수 있는 한 쌍을 저장함
+db.set(2, cup)
+db.set(3, chair)
+db.set(4, poster)
 
 // console.log(db)
 // console.log(db.get(1))
