@@ -28,7 +28,7 @@ let youtuber3 = {
 }
 
 let db = new Map()
-var id = 1
+let id = 1 //var는 사용하지 않을 것!
 
 db.set(id++, youtuber1) //key - value쌍 = json과 비슷!
 db.set(id++, youtuber2)
