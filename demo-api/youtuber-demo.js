@@ -37,9 +37,15 @@ db.set(id++, youtuber3)
 // REST API 설계
 app.get('/youtubers', function (req, res) {
     //req:X
-    res.json({
-        message : "test"
-    })
+    // db.forEach(function(youtuber) {
+    //     console.log(youtuber)
+    // })
+    var youtubers = {}
+    db.forEach( function (value, key){
+        youtubers[key] = value
+    });
+
+    res.json(youtubers)
 })
 
 app.get('/youtubers/:id', function (req, res) {
@@ -70,3 +76,62 @@ app.post('/youtubers', (req, res) => {
         //여기선 db에서 값 가져옴!
     })
 }) 
+
+app.delete('/youtubers/:id', function(req, res) {
+    let {id} = req.params
+    //params는 항상 문자열! 따라서 parseInt로 감싸주기
+    id = parseInt(id)
+    let youtuber = db.get(id)
+
+    if (youtuber == undefined) {
+        res.json({
+            message : `죄송합니다. 요청하신 ${id}님은 가입된 유튜버가 아닙니다.`
+        })
+    } else {
+        const channelTitle = youtuber.channelTitle
+        db.delete(id)
+            
+        res.json({
+            message : `${channelTitle}님, 정말 아쉽지만 다음에 또 뵙길 기대하겠습니다!`
+        })
+    }
+})
+
+app.delete('/youtubers', function(req, res) {
+    
+    var msg =""
+    // db에 값이 1개 이상이면, 전체 삭제
+    if (db.size >= 1) {
+        db.clear()
+         msg ="전체 유튜버 삭제가 완료됐습니다."
+    } else { // 값이 없으면, '죄송하지만 삭제할 유튜버가 존재하지 않습니다.'
+        msg ="죄송하지만 삭제할 유튜버가 존재하지 않습니다."
+    }
+
+    res.json({
+        message : msg
+    })
+})
+
+app.put('/youtubers/:id', function(req, res) {
+    let {id} = req.params
+    //params는 항상 문자열! 따라서 parseInt로 감싸주기
+    id = parseInt(id)
+    let youtuber = db.get(id)
+    let oldTitle = youtuber.channelTitle
+
+    if (youtuber == undefined) {
+        res.json({
+            message : `죄송합니다. 요청하신 ${id}님은 가입된 유튜버가 아닙니다.`
+        })
+    } else {
+        let newTitle = req.body.channelTitle
+
+        youtuber.channelTitle = newTitle
+        db.set(id, youtuber)
+            
+        res.json({
+            message : `${oldTitle}님, 채널명이 ${newTitle})(으)로 변경 완료되었습니다.`
+           })
+    }
+})
