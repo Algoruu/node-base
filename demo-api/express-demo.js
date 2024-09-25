@@ -1,8 +1,9 @@
 const express = require('express')
 const app = express()
+const dotenv = require('dotenv')
+dotenv.config()
 
-
-app.listen(1234)
+app.listen(process.env.PORT)
 // 서버 셋팅: 포트 넘버(번호)를 1234로 셋팅
 
 // GET + "/"
